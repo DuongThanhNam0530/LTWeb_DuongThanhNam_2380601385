@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuất Tạp Hoá</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Màu nền xám nhạt dịu mắt */
+        }
+        
+        /* Làm đẹp Header */
+        header {
+            background: linear-gradient(135deg, #198754 0%, #20c997 100%) !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Làm đẹp Navbar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #198754 !important;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: #495057 !important;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #198754 !important;
+        }
+
+        /* Hiệu ứng cho Thẻ sản phẩm (Card) */
+        .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        .card-img-top {
+            height: 220px;
+            object-fit: cover; /* Cắt ảnh vừa khung, không bị méo */
+        }
+        .card-title a {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .card-title a:hover {
+            color: #198754 !important;
+        }
+        
+        /* Làm đẹp nút bấm */
+        .btn-primary {
+            background-color: #198754;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #146c43;
+            transform: scale(1.02);
+        }
+
+        /* Sidebar & Footer */
+        .sidebar-menu {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .sidebar-menu h5 {
+            background-color: #198754;
+            margin: -1rem -1rem 1rem -1rem;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .footer-box {
+            border-radius: 12px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Hiệu ứng chuyển trang mượt mà */
+        #page-index, #page-detail {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+ 
+<div id="page-index">
+ 
+    <header class="text-white text-center py-5">
+        <h1 class="fw-bold display-5">Tuất Tạp Hoá</h1>
+        <p class="lead mb-0">Mua sắm tiện lợi, chất lượng tuyệt vời</p>
+    </header>
+ 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showIndex()">Trang Chủ</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Sản Phẩm</a></li>
+                </ul>
+            </div>
+            <div class="text-white d-flex align-items-center" style="cursor: pointer;">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <span id="cart-count" class="badge bg-danger rounded-pill ms-1">0</span>
+            </div>
+        </div>
+    </nav>
+ 
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(1); return false;">
+                                <img src="https://donghoduyanh.com/upload_images/images/2023/09/12/Top-100-anh-dong-ho-dep-1.jpg" class="card-img-top" alt="Sản Phẩm 1">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(1); return false;" class="text-decoration-none text-dark">Đồng hồ cao cấp</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả đồng hồ.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">100.000đ</p>
+                                <a href="#" onclick="showDetail(1); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(2); return false;">
+                                <img src="https://www.anphatpc.com.vn/media/news/2002_ReviewLaptopAsusROGStrixScar161.jpg" class="card-img-top" alt="Sản Phẩm 2">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(2); return false;" class="text-decoration-none text-dark">Laptop Gaming</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả Laptop.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">15.000.000đ</p>
+                                <a href="#" onclick="showDetail(2); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(3); return false;">
+                                <img src="https://picsum.photos/id/1060/600/400" class="card-img-top" alt="Sản Phẩm 3">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(3); return false;" class="text-decoration-none text-dark">Điện thoại</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả Điện thoại.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">12.000.000đ</p>
+                                <a href="#" onclick="showDetail(3); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(4); return false;">
+                                <img src="https://picsum.photos/id/30/600/400" class="card-img-top" alt="Sản Phẩm 4">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(4); return false;" class="text-decoration-none text-dark">Đồ chơi</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả Đồ chơi.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">8.000.000đ</p>
+                                <a href="#" onclick="showDetail(4); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(5); return false;">
+                                <img src="https://picsum.photos/id/431/600/400" class="card-img-top" alt="Sản Phẩm 5">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(5); return false;" class="text-decoration-none text-dark">Sản phẩm 5</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả sản phẩm 5.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">12.000.000đ</p>
+                                <a href="#" onclick="showDetail(5); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="#" onclick="showDetail(6); return false;">
+                                <img src="https://picsum.photos/id/200/600/400" class="card-img-top" alt="Sản Phẩm 6">
+                            </a>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">
+                                    <a href="#" onclick="showDetail(6); return false;" class="text-decoration-none text-dark">Sản phẩm 6</a>
+                                </h5>
+                                <p class="card-text text-muted small mb-3">Mô tả sản phẩm 6.</p>
+                                <p class="card-text fw-bold text-success fs-5 mt-auto">12.000.000đ</p>
+                                <a href="#" onclick="showDetail(6); return false;" class="btn btn-primary w-100 mt-2">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+ 
+            <div class="col-md-3">
+                <div class="bg-white p-3 sidebar-menu">
+                    <h5 class="text-white text-center"><i class="fas fa-link me-2"></i>Kết nối</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark d-block p-2 rounded bg-light hover-bg"><i class="fab fa-facebook text-primary me-2"></i>Facebook</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark d-block p-2 rounded bg-light hover-bg"><i class="fab fa-twitter text-info me-2"></i>Twitter</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-dark d-block p-2 rounded bg-light hover-bg"><i class="fab fa-instagram text-danger me-2"></i>Instagram</a></li>
+                        <li><a href="#" class="text-decoration-none text-dark d-block p-2 rounded bg-light hover-bg"><i class="fab fa-youtube text-danger me-2"></i>Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="container mt-5 mb-4">
+        <div class="footer-box bg-dark text-white p-4">
+            <div class="row">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <h5 class="text-success fw-bold">Web Tạp Hoá</h5>
+                    <p class="text-muted small">Cam kết mang lại những sản phẩm tốt nhất cho bạn.</p>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <h5 class="fw-bold">Chính sách</h5>
+                    <p class="text-muted small mb-1">Vận chuyển</p>
+                    <p class="text-muted small">Bảo hành & Đổi trả</p>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <h5 class="fw-bold">Liên hệ</h5>
+                    <p class="text-muted small mb-1"><i class="fas fa-phone me-2"></i>0123 456 789</p>
+                    <p class="text-muted small"><i class="fas fa-envelope me-2"></i>hotro@webtaphoa.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div><div id="page-detail" style="display:none;">
+ 
+    <header class="text-white text-center py-4" style="background: linear-gradient(135deg, #198754 0%, #20c997 100%);">
+        <h2 class="fw-bold mb-0">Chi tiết sản phẩm</h2>
+    </header>
+ 
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showIndex(); return false;"><i class="fas fa-arrow-left me-2"></i>Trang Chủ</a>
+        </div>
+    </nav>
+ 
+    <div class="container mt-5">
+        <div class="card p-4 shadow-sm">
+            <div class="row" id="detail-content"></div>
+        </div>
+    </div>
+ 
+</div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const products = [
+        { id: 1, name: "Đồng hồ cao cấp", img: "https://donghoduyanh.com/upload_images/images/2023/09/12/Top-100-anh-dong-ho-dep-1.jpg", desc: "Mô tả chi tiết. Đây là sản phẩm chất lượng cao, bền đẹp và phù hợp với nhiều nhu cầu sử dụng.", price: "100.000đ" },
+        { id: 2, name: "Laptop Gaming", img: "https://www.anphatpc.com.vn/media/news/2002_ReviewLaptopAsusROGStrixScar161.jpg", desc: "Mô tả chi tiết. Thiết kế hiện đại, sang trọng, phù hợp với phong cách sống năng động.", price: "15.000.000đ" },
+        { id: 3, name: "Điện thoại thông minh", img: "https://picsum.photos/id/1060/800/500", desc: "Mô tả chi tiết. Sản phẩm được làm từ vật liệu cao cấp, an toàn cho người dùng.", price: "12.000.000đ" },
+        { id: 4, name: "Đồ chơi trẻ em", img: "https://picsum.photos/id/30/800/500",   desc: "Mô tả chi tiết. Giá cả phải chăng, phù hợp với nhiều đối tượng khách hàng.", price: "8.000.000đ" },
+        { id: 5, name: "Sản phẩm 5", img: "https://picsum.photos/id/431/800/500",  desc: "Mô tả chi tiết. Sản phẩm nổi bật với thiết kế độc đáo và chức năng đa dạng.", price: "12.000.000đ" },
+        { id: 6, name: "Sản phẩm 6", img: "https://picsum.photos/id/200/800/500",  desc: "Mô tả chi tiết. Lựa chọn hoàn hảo cho những ai yêu thích sự tinh tế và tiện lợi.", price: "12.000.000đ" },
+    ];
+ 
+    function showDetail(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+ 
+        document.getElementById("detail-content").innerHTML = `
+            <div class="col-md-6 mb-4 mb-md-0">
+                <img src="${product.img}" class="img-fluid rounded shadow-sm" style="width: 100%; max-height: 400px; object-fit: cover;" alt="${product.name}">
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+                <h2 class="fw-bold mb-3">${product.name}</h2>
+                <p class="text-muted lh-lg">${product.desc}</p>
+                <h3 class="text-success fw-bold my-4">${product.price}</h3>
+                <div class="d-flex gap-2 mt-auto">
+                    <button class="btn btn-primary flex-grow-1 py-2"><i class="fas fa-cart-plus me-2"></i>Thêm vào giỏ hàng</button>
+                    <a href="#" onclick="showIndex(); return false;" class="btn btn-outline-secondary py-2 px-4">Quay lại</a>
+                </div>
+            </div>
+        `;
+ 
+        document.getElementById("page-index").style.display = "none";
+        document.getElementById("page-detail").style.display = "block";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+ 
+    function showIndex() {
+        document.getElementById("page-detail").style.display = "none";
+        document.getElementById("page-index").style.display = "block";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+ 
+</body>
+</html>
