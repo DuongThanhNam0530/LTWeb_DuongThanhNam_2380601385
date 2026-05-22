@@ -1,0 +1,56 @@
+@model IEnumerable<WebsiteBanHang.Models.Product>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    var categoryMap = ViewBag.Categories as Dictionary<int, string>;
+}
+
+<div class="page-header">
+    <h1 class="page-title">Danh sách sản phẩm</h1>
+    <a asp-action="Add" class="btn btn-accent">➕ Thêm sản phẩm</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <span class="empty-state-icon">📭</span>
+        <h3>Chưa có sản phẩm nào</h3>
+        <p>Bắt đầu bằng cách thêm sản phẩm đầu tiên của bạn!</p>
+        <a asp-action="Add" class="btn btn-accent">➕ Thêm ngay</a>
+    </div>
+}
+else
+{
+    <div class="product-grid">
+        @foreach (var product in Model)
+        {
+            <div class="product-card">
+                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                {
+                    <img src="@product.ImageUrl" alt="@product.Name" class="product-card-img" />
+                }
+                else
+                {
+                    <div class="product-card-img-placeholder">🖼️</div>
+                }
+
+                <div class="product-card-body">
+                    <div class="product-card-category">
+                        @(categoryMap != null && categoryMap.ContainsKey(product.CategoryId)
+                            ? categoryMap[product.CategoryId]
+                            : "Chưa phân loại")
+                    </div>
+                    <h3 class="product-card-name">@product.Name</h3>
+                    <p class="product-card-desc">@product.Description</p>
+                    <div class="product-card-price">
+                        @product.Price.ToString("N0") <span>VNĐ</span>
+                    </div>
+                    <div class="product-card-actions">
+                        <a asp-action="Display" asp-route-id="@product.Id" class="btn btn-primary btn-sm">👁️ Xem</a>
+                        <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-accent btn-sm">✏️ Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">🗑️ Xóa</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

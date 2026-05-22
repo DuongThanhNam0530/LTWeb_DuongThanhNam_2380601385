@@ -1,0 +1,62 @@
+@model WebsiteBanHang.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+    string categoryName = ViewBag.CategoryName ?? "Không xác định";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Chi tiết sản phẩm</h1>
+    <a asp-action="Index" class="btn btn-outline">← Danh sách</a>
+</div>
+
+<div class="detail-card">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100%; max-height:360px; object-fit:cover;" />
+    }
+
+    <div class="detail-card-header">
+        <h2>@Model.Name</h2>
+        <span class="badge badge-accent" style="margin-top:8px;">ID #@Model.Id</span>
+    </div>
+
+    <div class="detail-card-body">
+        <div class="detail-row">
+            <span class="detail-label">💰 Giá</span>
+            <span class="detail-value">
+                <span class="price-badge">@Model.Price.ToString("N0") VNĐ</span>
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">📁 Danh mục</span>
+            <span class="detail-value">
+                <span class="badge badge-primary">@categoryName</span>
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <span class="detail-label">📝 Mô tả</span>
+            <span class="detail-value">@(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả" : Model.Description)</span>
+        </div>
+
+        @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+        {
+            <div class="detail-row">
+                <span class="detail-label">🖼️ Ảnh khác</span>
+                <span class="detail-value" style="display:flex; gap:8px; flex-wrap:wrap;">
+                    @foreach (var img in Model.ImageUrls)
+                    {
+                        <img src="@img" style="width:80px; height:80px; object-fit:cover; border-radius:8px;" />
+                    }
+                </span>
+            </div>
+        }
+
+        <div style="display:flex; gap:12px; margin-top:1.5rem; flex-wrap:wrap;">
+            <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-accent">✏️ Chỉnh sửa</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">🗑️ Xóa sản phẩm</a>
+            <a asp-action="Index" class="btn btn-outline">← Quay lại</a>
+        </div>
+    </div>
+</div>

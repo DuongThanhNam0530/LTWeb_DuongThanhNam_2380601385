@@ -1,0 +1,52 @@
+@model WebsiteBanHang.Models.Product
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+    string categoryName = ViewBag.CategoryName ?? "Không xác định";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Xác nhận xóa</h1>
+    <a asp-action="Index" class="btn btn-outline">← Quay lại</a>
+</div>
+
+<div class="danger-card">
+    <span class="danger-icon">⚠️</span>
+    <h3 style="font-family:'Poppins',sans-serif; font-weight:700; color:#c53030; margin-bottom:8px;">
+        Bạn có chắc muốn xóa?
+    </h3>
+    <p style="color:#718096; font-size:0.9rem; margin-bottom:1.5rem;">
+        Hành động này không thể hoàn tác. Sản phẩm sẽ bị xóa vĩnh viễn.
+    </p>
+
+    <div style="background:#fff; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1.5rem; border:1px solid #fed7d7;">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div style="margin-bottom:12px;">
+                <img src="@Model.ImageUrl" style="height:80px; border-radius:8px; object-fit:cover;" />
+            </div>
+        }
+        <div class="detail-row" style="border:none; padding:6px 0;">
+            <span class="detail-label">Tên SP</span>
+            <span class="detail-value" style="font-weight:700;">@Model.Name</span>
+        </div>
+        <div class="detail-row" style="border:none; padding:6px 0;">
+            <span class="detail-label">Giá</span>
+            <span class="detail-value">@Model.Price.ToString("N0") VNĐ</span>
+        </div>
+        <div class="detail-row" style="border:none; padding:6px 0;">
+            <span class="detail-label">Danh mục</span>
+            <span class="detail-value">@categoryName</span>
+        </div>
+        <div class="detail-row" style="border:none; padding:6px 0;">
+            <span class="detail-label">Mô tả</span>
+            <span class="detail-value">@Model.Description</span>
+        </div>
+    </div>
+
+    @* asp-action="Delete" vì controller dùng [ActionName("Delete")] *@
+    <form asp-action="Delete" method="post" style="display:flex; gap:12px; flex-wrap:wrap;">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">🗑️ Xóa vĩnh viễn</button>
+        <a asp-action="Index" class="btn btn-outline">Hủy bỏ</a>
+    </form>
+</div>
