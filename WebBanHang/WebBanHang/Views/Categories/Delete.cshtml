@@ -1,0 +1,20 @@
+﻿@model WebsiteBanHang.Models.Category
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Xác nhận xóa danh mục</h1>
+    <a asp-action="Index" class="btn btn-outline">← Quay lại</a>
+</div>
+
+<div class="danger-card">
+    <span class="danger-icon">⚠️</span>
+    <h3 style="color:#c53030;">Bạn có chắc muốn xóa danh mục "@Model.Name"?</h3>
+    <p style="color:#718096;">Hành động này không thể hoàn tác.</p>
+    <form asp-action="DeleteConfirmed" method="post" style="margin-top:1rem;">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">🗑️ Xóa</button>
+        <a asp-action="Index" class="btn btn-outline">Hủy</a>
+    </form>
+</div>

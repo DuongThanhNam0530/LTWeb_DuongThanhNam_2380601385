@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.Category>
+@{
+    ViewData["Title"] = "Danh mục";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Danh sách danh mục</h1>
+    <a asp-action="Add" class="btn btn-accent">➕ Thêm danh mục</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr><th>ID</th><th>Tên danh mục</th><th>Thao tác</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.Id</td>
+                <td>@cat.Name</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@cat.Id" class="btn btn-accent btn-sm">✏️ Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@cat.Id" class="btn btn-danger btn-sm">🗑️ Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

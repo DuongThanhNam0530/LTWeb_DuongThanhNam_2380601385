@@ -1,0 +1,84 @@
+@model WebsiteBanHang.Models.Product
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Sửa sản phẩm";
+}
+
+<div class="page-header">
+    <h1 class="page-title">Chỉnh sửa sản phẩm</h1>
+    <a asp-action="Index" class="btn btn-outline">← Quay lại</a>
+</div>
+
+<div class="form-card">
+    <form asp-action="Update" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImageUrl" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="form-label">Tên sản phẩm *</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price" class="form-label">Giá ($) *</label>
+            <input asp-for="Price" class="form-control" type="number" min="0" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="form-label">Mô tả</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId" class="form-label">Danh mục *</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                <option value="">-- Chọn danh mục --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Thay ảnh sản phẩm</label>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div style="margin-bottom:8px;">
+                    <img src="@Model.ImageUrl" style="height:80px; border-radius:8px; object-fit:cover;" />
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Ảnh hiện tại. Upload mới để thay.</p>
+                </div>
+            }
+            <div class="form-group">
+                <label class="form-label">Thay ảnh sản phẩm</label>
+                <img id="previewImage"
+                     src="@Model.ImageUrl"
+                     style="height:120px; border-radius:8px; object-fit:cover; margin-bottom:8px; display:@(string.IsNullOrEmpty(Model.ImageUrl) ? "none" : "block");" />
+                <input type="file" name="imageUrl" id="imageInput" class="form-control" accept="image/*" />
+            </div>
+
+            @section Scripts {
+                <script>
+                    document.getElementById('imageInput').addEventListener('change', function (e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                const preview = document.getElementById('previewImage');
+                                preview.src = e.target.result;
+                                preview.style.display = 'block';
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                </script>
+            }
+        </div>
+
+        <div style="display:flex; gap:12px; margin-top:1.5rem;">
+            <button type="submit" class="btn btn-accent">💾 Lưu thay đổi</button>
+            <a asp-action="Display" asp-route-id="@Model.Id" class="btn btn-outline">Hủy</a>
+        </div>
+    </form>
+</div>
