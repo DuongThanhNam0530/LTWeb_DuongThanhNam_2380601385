@@ -1,44 +1,33 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebsiteBanHang.Models;
 using WebsiteBanHang.Repositories;
 
-namespace WebsiteBanHang.Controllers
+namespace WebsiteBanHang.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(
-            IProductRepository productRepository,
-            ICategoryRepository categoryRepository,
-            IWebHostEnvironment webHostEnvironment)
+        public ProductController(IProductRepository productRepo,
+            ICategoryRepository categoryRepo, IWebHostEnvironment env)
         {
-            _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
-            _webHostEnvironment = webHostEnvironment;
+            _productRepository = productRepo;
+            _categoryRepository = categoryRepo;
+            _webHostEnvironment = env;
         }
 
-        // Ai cũng xem được
         public async Task<IActionResult> Index()
         {
             var products = await _productRepository.GetAllAsync();
             return View(products);
         }
 
-        // Ai cũng xem được
-        public async Task<IActionResult> Display(int id)
-        {
-            var product = await _productRepository.GetByIdAsync(id);
-            if (product == null) return NotFound();
-            return View(product);
-        }
-
-        // Chỉ Admin
-        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Add()
         {
             var categories = await _categoryRepository.GetAllAsync();
@@ -46,7 +35,6 @@ namespace WebsiteBanHang.Controllers
             return View();
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
         [HttpPost]
         public async Task<IActionResult> Add(Product product, IFormFile imageUrl)
         {
@@ -63,7 +51,6 @@ namespace WebsiteBanHang.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Update(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -73,7 +60,6 @@ namespace WebsiteBanHang.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
         [HttpPost]
         public async Task<IActionResult> Update(int id, Product product, IFormFile imageUrl)
         {
@@ -81,17 +67,14 @@ namespace WebsiteBanHang.Controllers
             if (id != product.Id) return NotFound();
             if (ModelState.IsValid)
             {
-                var existingProduct = await _productRepository.GetByIdAsync(id);
-                if (imageUrl == null)
-                    product.ImageUrl = existingProduct!.ImageUrl;
-                else
-                    product.ImageUrl = await SaveImage(imageUrl);
-                existingProduct!.Name = product.Name;
-                existingProduct.Price = product.Price;
-                existingProduct.Description = product.Description;
-                existingProduct.CategoryId = product.CategoryId;
-                existingProduct.ImageUrl = product.ImageUrl;
-                await _productRepository.UpdateAsync(existingProduct);
+                var existing = await _productRepository.GetByIdAsync(id);
+                existing!.Name = product.Name;
+                existing.Price = product.Price;
+                existing.Description = product.Description;
+                existing.CategoryId = product.CategoryId;
+                if (imageUrl != null)
+                    existing.ImageUrl = await SaveImage(imageUrl);
+                await _productRepository.UpdateAsync(existing);
                 return RedirectToAction(nameof(Index));
             }
             var categories = await _categoryRepository.GetAllAsync();
@@ -99,7 +82,6 @@ namespace WebsiteBanHang.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -107,7 +89,6 @@ namespace WebsiteBanHang.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = SD.Role_Admin)]
         [HttpPost, ActionName("DeleteConfirmed")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -119,12 +100,9 @@ namespace WebsiteBanHang.Controllers
         {
             var savePath = Path.Combine(_webHostEnvironment.WebRootPath, "images");
             if (!Directory.Exists(savePath)) Directory.CreateDirectory(savePath);
-            var fileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-            var filePath = Path.Combine(savePath, fileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(fileStream);
-            }
+            var fileName = Guid.NewGuid() + "_" + image.FileName;
+            using var fs = new FileStream(Path.Combine(savePath, fileName), FileMode.Create);
+            await image.CopyToAsync(fs);
             return "/images/" + fileName;
         }
     }

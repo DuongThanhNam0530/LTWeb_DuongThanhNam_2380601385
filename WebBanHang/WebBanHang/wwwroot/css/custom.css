@@ -5,21 +5,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --red: #d70018;
-    --red-dark: #b8000f;
-    --red-light: #fff0f0;
-    --navy: #1a1a2e;
-    --navy2: #16213e;
-    --accent: #f5a623;
-    --bg: #f5f5f5;
-    --white: #ffffff;
-    --text: #222;
-    --text-muted: #666;
-    --border: #e0e0e0;
-    --radius: 8px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
-    --shadow-hover: 0 6px 24px rgba(0,0,0,0.14);
-    --transition: all 0.2s ease;
+    --primary: #16a34a;
+    --primary-dark: #15803d;
+    --primary-light: #dcfce7;
+    --navy: #14532d;
+    --navy2: #052e16;
+    --accent: #f5c842;
+    --bg: #f0fdf4;
+    --text: #1a2e1a;
+    --text-muted: #4a7a55;
+    --border: #bbf7d0;
+    --shadow: 0 2px 12px rgba(22,163,74,0.08);
+    --shadow-hover: 0 6px 24px rgba(22,163,74,0.18);
+    ...
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,29 +59,30 @@ body {
 }
 
 .navbar-brand {
-    font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 800;
     font-size: 1.35rem !important;
-    color: #fff !important;
-    letter-spacing: -0.5px;
+    color: #000 !important;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0 !important;
 }
 
-.navbar-brand .brand-icon {
-    background: #fff;
-    color: var(--red);
-    width: 34px; height: 34px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    font-weight: 900;
-}
+    .navbar-brand .brand-icon {
+        background: #14532d;
+        color: #fff;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 900;
+    }
 
 .navbar-nav .nav-link {
-    color: rgba(255,255,255,0.9) !important;
+    color: rgba(0,0,0,0.85) !important;
     font-weight: 600;
     font-size: 0.875rem;
     padding: 8px 14px !important;
@@ -91,10 +90,10 @@ body {
     transition: var(--transition);
 }
 
-.navbar-nav .nav-link:hover {
-    color: #fff !important;
-    background: rgba(255,255,255,0.15);
-}
+    .navbar-nav .nav-link:hover {
+        color: #000 !important;
+        background: rgba(0,0,0,0.08);
+    }
 
 .navbar-toggler { border: none; }
 .navbar-toggler-icon { filter: invert(1); }

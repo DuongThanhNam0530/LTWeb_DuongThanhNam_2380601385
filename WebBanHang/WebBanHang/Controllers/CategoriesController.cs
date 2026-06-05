@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebsiteBanHang.Models;
 using WebsiteBanHang.Repositories;
 
 namespace WebsiteBanHang.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoriesController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -19,10 +21,7 @@ namespace WebsiteBanHang.Controllers
             return View(categories);
         }
 
-        public IActionResult Add()
-        {
-            return View();
-        }
+        public IActionResult Add() => View();
 
         [HttpPost]
         public async Task<IActionResult> Add(Category category)
