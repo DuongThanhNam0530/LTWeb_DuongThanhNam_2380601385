@@ -17,7 +17,12 @@
     --border: #bbf7d0;
     --shadow: 0 2px 12px rgba(22,163,74,0.08);
     --shadow-hover: 0 6px 24px rgba(22,163,74,0.18);
-    ...
+    --red: #d70018;
+    --red-dark: #b0000f;
+    --red-light: #fff0f0;
+    --white: #ffffff;
+    --radius: 10px;
+    --transition: all 0.2s ease;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
