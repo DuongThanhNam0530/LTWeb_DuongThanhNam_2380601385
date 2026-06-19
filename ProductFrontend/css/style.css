@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.table thead th {
+    font-weight: 500;
+}
+
+.btn-sm-action {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+}
